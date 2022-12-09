@@ -1,0 +1,71 @@
+﻿@page "/inputsv1"
+<Form Model="EditModel1">
+    <Template style="height:90%">
+        <Row Gutter="16">
+            <AntDesign.Col Span="6">
+
+            </AntDesign.Col>
+            <AntDesign.Col Span="20">
+                <Text>Họ tên:</Text>
+                <Input @bind-Value="@EditModel1.ten" Style="left:40px; border-radius:4px" />
+            </AntDesign.Col>
+            <AntDesign.Col Span="20">
+                <Text>Tuổi:</Text>
+                @*<Input @bind-Value="@EditModel.tuoi" Style="text-align: center;" />*@
+                <AntDesign.InputNumber @bind-Value="@EditModel1.tuoi" Min="0" Max="200" Style="width:50px; margin-top: 5px" />
+            </AntDesign.Col>
+            
+
+
+        </Row>
+        <br />
+        <Row Gutter="16">
+            <AntDesign.Col Span="12" Style="margin-top:20px">
+                <Text>Giới tính:</Text>
+                @*  <Select DataSource="@sexs"
+                @bind-Value="@EditModel.gioitinh"
+                ValueName="@nameof(Sex.value)"
+                LabelName="@nameof(Sex.Name)"
+                Style="width:120px">
+                <option value=0>Nam</option>
+                <option value=1>Nữ</option>
+                </Select>*@
+                <Input @bind-Value="EditModel1.gioitinh" Style="width:60px;">
+                    
+                </Input>
+            </AntDesign.Col>
+
+
+        </Row>
+        <br />
+
+        <br />
+        <Row Gutter="16">
+            <AntDesign.Col Span="8">
+                <Text>Điểm toán:</Text>
+                <AntDesign.InputNumber @bind-Value="@EditModel1.diemtoan" Min="0" Max="10" />
+            </AntDesign.Col>
+            <AntDesign.Col Span="8">
+                <Text>Điểm văn:</Text>
+                <AntDesign.InputNumber @bind-Value="@EditModel1.diemvan" Min="0" Max="10" />
+            </AntDesign.Col>
+            <AntDesign.Col Span="8">
+                <Text>Điểm anh:</Text>
+                <AntDesign.InputNumber @bind-Value="@EditModel1.diemanh" Min="0" Max="10" />
+            </AntDesign.Col>
+
+        </Row>
+        <br />
+        <br />
+        <br />
+        <Row>
+            <AntDesign.Col Span="7">
+
+            </AntDesign.Col>
+            <AntDesign.Col Span="12">
+                <Button Type="default" OnClick="Thoat1" >Cancel</Button>
+                <Button Type="primary" OnClick="()=>UpdateSv1()">Submit</Button>
+            </AntDesign.Col>
+        </Row>
+    </Template>
+</Form>

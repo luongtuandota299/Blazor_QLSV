@@ -1,0 +1,77 @@
+﻿@page "/Chart"
+@using AntDesign.Charts
+@using Title = AntDesign.Charts.Title
+
+    <Tabs>
+        <TabPane Key="1">
+            <TabTemplate>Biểu đồ phần trăm học lực sinh viên 2022</TabTemplate>
+            <ChildContent>
+                <Pie Data="data1" Config="config1" />
+            </ChildContent>
+        </TabPane>
+   </Tabs>
+@code{
+    int gioi, kha, tb, yeu, tong;
+    object[] data1;
+    protected override async Task OnInitializedAsync()
+    {
+        SinhVienServices sinhVienServices = new SinhVienServices();
+        gioi = sinhVienServices.GetTotalStudentByAcademicAbility("Giỏi");
+        kha = sinhVienServices.GetTotalStudentByAcademicAbility("Khá");
+        tb = sinhVienServices.GetTotalStudentByAcademicAbility("Trung Bình");
+        yeu = sinhVienServices.GetTotalStudentByAcademicAbility("Yếu");
+        tong = gioi + kha + yeu + tb;
+        data1 = new object[]
+    {
+        new
+        {
+            type = "Sinh Viên loại giỏi(%)",
+            value = (gioi*100)/tong 
+        },
+        new
+        {
+            type = "Sinh Viên loại khá(%)",
+            value = (kha*100)/tong 
+        },
+        new
+        {
+            type = "Sinh Viên loại trung bình(%)",
+            value = (tb*100)/tong 
+        },
+        new
+        {
+            type = "Sinh Viên loại giỏi yếu(%)",
+            value = (yeu*100)/tong 
+        },
+
+    };
+
+        await base.OnInitializedAsync();
+    }
+
+
+    readonly PieConfig config1 = new PieConfig
+        {
+            ForceFit = true,
+            Title = new Title
+            {
+                Visible = true,
+                Text = "BIỂU ĐỒ SỐ SINH VIÊN TỪNG LOẠI HỌC LỰC"
+            },
+            Description = new Description
+            {
+                Visible = true,
+                Text = "Biểu đồ phản ánh học lực của sinh viên trong năm học 2022"
+            },
+            Radius = 0.8,
+            AngleField = "value",
+            ColorField = "type",
+            Label = new PieLabelConfig
+            {
+                Visible = true,
+                Type = "inner"
+            }
+        };
+   }
+   
+   

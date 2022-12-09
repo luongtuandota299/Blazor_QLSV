@@ -1,0 +1,41 @@
+﻿@page "/component"
+@using Blazor_QLSV04.Data
+@inject NavigationManager Navigation
+@using AntDesign.TableModels
+<Button Type="@ButtonType.Primary" OnClick="Add" Style="border-radius:5px;   box-shadow: 2px 2px yellow;">
+    thêm mới
+</Button>
+<Form Model="@tasksearchSV" Style="display:flex; margin-top: 10px" 
+      OnFinish="SearchSV">
+                    <FormItem Style="width: 70%">
+        <Input @bind-Value="@context.Ten" Style="border-radius:4px" />
+                    </FormItem>
+                    <FormItem WrapperColOffset="8" WrapperColSpan="16">
+        <Button Type="@ButtonType.Primary" HtmlType="submit" Style="border-radius:5px;   box-shadow: 2px 2px yellow;">
+                            Tìm kiếm
+                        </Button>
+                    </FormItem>
+ </Form>
+<Table TItem="SinhVien_ViewModel" DataSource="abc" PageSize="2">
+    <Column @bind-Field="context.ten" Sortable></Column>
+    <Column @bind-Field="context.gioitinh"></Column>
+        <Column @bind-Field="context.tuoi" Sortable></Column>
+        <Column @bind-Field="context.diemtoan"></Column>
+        <Column @bind-Field="context.diemanh"></Column>
+        <Column @bind-Field="context.diemvan"></Column>
+        <Column @bind-Field="context.diemtb"></Column>
+        <Column @bind-Field="context.hocluc"></Column>
+        <ActionColumn Title="Hành động" Fixed="right" Class="btn-link">
+        <Icon Type="edit" Theme="outline" @onclick="()=> UpdateSinhVien(context)" Width="20" Height="20" />
+
+            <Popconfirm Title="Xác nhận xóa?"
+                    OnConfirm="()=> Delete(context)"
+                    OkText="Có"
+                    CancelText="Không">
+                <Icon Type="delete" Theme="outline" Width="20" Height="20" />
+            </Popconfirm>
+        </ActionColumn>
+    </Table>
+<Drawer Closable="false" Visible="visible" Placement="right" Width=500 Title='("Sửa thông tin")' OnClose="() => visible = false">
+    <NhapSinhVien @ref="nhapSinhVien" Thoat="()=>visible=false" ThayDoi="Save"  />
+</Drawer>

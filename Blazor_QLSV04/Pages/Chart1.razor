@@ -1,0 +1,75 @@
+﻿@using AntDesign.Charts
+@using Title = AntDesign.Charts.Title
+@inject NavigationManager NavigationManager
+
+@page "/Chart1"
+<Tabs>
+    <TabPane Key="1">
+        <TabTemplate>HỌC LỰC SINH VIÊN 2022</TabTemplate>
+        <ChildContent>
+            <AntDesign.Charts.Column Data="data1" Config="config1" />
+        </ChildContent>
+    </TabPane>
+</Tabs>
+@code {
+    
+    object[] data1;
+    protected override async Task OnInitializedAsync()
+    {
+        SinhVienServices sinhVienServices = new SinhVienServices();
+        int gioi = sinhVienServices.GetTotalStudentByAcademicAbility("Giỏi");
+        int kha = sinhVienServices.GetTotalStudentByAcademicAbility("Khá");
+        int tb = sinhVienServices.GetTotalStudentByAcademicAbility("Trung Bình");
+        int yeu = sinhVienServices.GetTotalStudentByAcademicAbility("Yếu");
+        int tong = gioi + kha + yeu + tb;
+       data1 = new object[]
+        {
+    new
+    {
+    type = "Giỏi",
+    sales = gioi
+    },
+    new
+    {
+    type = "Khá",
+    sales = kha
+    },
+    new
+    {
+    type = "Trung bình",
+    sales = tb
+    },
+    new
+    {
+    type = "Vô dụng",
+    sales = yeu
+    },
+       };
+     await base.OnInitializedAsync();
+    }
+
+        ColumnConfig config1 = new ColumnConfig
+        {
+            Title = new Title
+            {
+                Visible = true,
+                Text = "Biểu Đồ Học Lực"
+            },
+            ForceFit = true,
+            Padding = "auto",
+            XField = "type",
+            YField = "sales",
+            Meta = new
+            {
+                Type = new
+                {
+                    Alias = "Báo cáo biểu đồ"
+                },
+                Sales = new
+                {
+                    Alias = "Số lượng sinh viên"
+                }
+            }
+        };
+
+}
